@@ -1,0 +1,26 @@
+name: Lighthouse CI
+on:
+ schedule:
+  - cron: '00 00 * * *' #Time is UTC
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://qalybr.nl
+            https://qalybr.nl/word-onze-kameraad-in-it/
+            https://qalybr.nl/vind-jouw-it-kameraad/
+            https://qalybr.nl/over-ons/
+            https://qalybr.nl/contact/
+            https://qalybr.nl/404/
+            https://qalybr.nl/vacatures/front-end-developer/
+            https://qalybr.nl/vacatures/test-engineer/
+            https://qalybr.nl/vacatures/open-sollicitatie/
+            https://qalybr.nl/vacatures/
+          budgetPath: ./qalybr.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
